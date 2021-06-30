@@ -1,0 +1,9 @@
+# Temporary Directories
+temp/
+tuts/
+
+# Build Files
+build/
+
+# Temporary Files
+*.temp
