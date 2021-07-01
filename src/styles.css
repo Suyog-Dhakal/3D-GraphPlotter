@@ -1,12 +1,11 @@
-.container {
+/* .container {
   position: relative;
-}
-#canvas,
-#text {
-  width: 100%;
+} */
+#canvas{
+  width: 70%;
   height: 100%;
   position: absolute;
 }
-#text {
+/* #text {
   z-index: 10;
-}
+} */
