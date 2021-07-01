@@ -45,63 +45,29 @@ var rotationStep = Math.PI / 20;
 var sampleCount = 500;
 var maxFading = 2;
 
-function main() {
-  var canvas = document.getElementById("canvas");
-
-  var gl = canvas.getContext("webgl");
-  if (!gl) {
-    return;
-  }
-
+const main = () => {
   var textCanvas = document.getElementById("text");
   var textCtx = textCanvas.getContext("2d");
 
-  var vertexShaderSource = document.getElementById("vertex_shader").text;
-  var fragmentShaderSource = document.getElementById("fragment_shader").text;
-
-  var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-  var fragmentShader = createShader(
-    gl,
-    gl.FRAGMENT_SHADER,
-    fragmentShaderSource
-  );
-
-  var program = createProgram(gl, vertexShader, fragmentShader);
+  const program = getShaderProgram()
 
   // lines
   var coordsSys = {};
-  coordsSys.setData = function (minX, maxX, minY, maxY, minZ, maxZ) {
+  coordsSys.setData = function(minX,maxX,minY,maxY,minZ,maxZ){
     let midX = 0; //(minX + maxX) / 2;
     let midY = 0; //(minY + maxY) / 2;
     let midZ = 0; //(minZ + maxZ) / 2;
     coordsSys.data = [
-      minX,
-      midY,
-      midZ,
-      maxX,
-      midY,
-      midZ,
-      midX,
-      minY,
-      midZ,
-      midX,
-      maxY,
-      midZ,
-      midX,
-      midY,
-      minZ,
-      midX,
-      midY,
-      maxZ,
-    ];
+      minX,midY,midZ,
+      maxX,midY,midZ,
+      midX,minY,midZ,
+      midX,maxY,midZ,
+      midX,midY,minZ,
+      midX,midY,maxZ ];
     coordsSys.length = coordsSys.data.length;
-    gl.bindBuffer(gl.ARRAY_BUFFER, coordsSys.buff);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array(coordsSys.data),
-      gl.STATIC_DRAW
-    );
-  };
+    gl.bindBuffer(gl.ARRAY_BUFFER, coordsSys.buff );
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(coordsSys.data), gl.STATIC_DRAW);
+  }
   coordsSys.dims = 3;
   coordsSys.primitive = gl.LINES;
   coordsSys.buff = gl.createBuffer();
@@ -110,10 +76,13 @@ function main() {
   coordsSys.fading = 0.0;
   coordsSys.ambientStrength = 0.0;
   coordsSys.normalsData = [
-    1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
-    1.0, 0.0, 0.0,
+    1.0,0.0,0.0,
+    1.0,0.0,0.0,
+    1.0,0.0,0.0,
+    1.0,0.0,0.0,
+    1.0,0.0,0.0,
+    1.0,0.0,0.0
   ];
-
   coordsSys.normalsBuff = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, coordsSys.normalsBuff);
   gl.bufferData(
@@ -155,11 +124,6 @@ function main() {
     textCtx.clearRect(0, 0, textCtx.canvas.width, textCtx.canvas.height);
 
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-    gl.clearColor(0, 0, 0, 0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-    // 3d
-    gl.enable(gl.DEPTH_TEST);
 
     // colors fading
     gl.disable(gl.BLEND);
@@ -167,7 +131,6 @@ function main() {
 
     gl.disable(gl.CULL_FACE);
 
-    gl.useProgram(program);
 
     var size = 3;
     var type = gl.FLOAT;
@@ -253,7 +216,7 @@ function main() {
   var maxZInput = document.getElementById("maxZ");
   var fadingRange = document.getElementById("fadingRange");
   var ambientRange = document.getElementById("ambientRange");
-  var init = function () {
+  var reload = function () {
     // maxX,maY,maxZ are used in redraw function to draw text
     let func = functions[funcSel.value];
     let minX = parseInt(minXInput.value);
@@ -309,9 +272,9 @@ function main() {
 
     redraw();
   };
-  document.getElementById("drawButton").onclick = init;
+  document.getElementById("drawButton").onclick = reload;
 
-  init();
+  reload();
 
   // controls
   document.addEventListener(
@@ -332,7 +295,7 @@ function main() {
           transform = mat.multiply(mat.yRotation(-rotationStep), transform);
           break;
         case "r":
-          init();
+          reload();
           break;
         case " ":
           // movement.forward();
