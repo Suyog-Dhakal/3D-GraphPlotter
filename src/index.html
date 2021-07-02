@@ -7,6 +7,7 @@
     <title>3D Graph Plotting</title>
   </head>
   <body>
+<<<<<<< HEAD
     <div id="box-container">
 
       <div class= "big-box" id="input-box">
@@ -50,6 +51,33 @@
        </container>
      </div>
 </div>
+=======
+    <br />
+    <div id="interface">
+      <label >z = </label>
+      <input type="text" id="function" value="x^2 + y^2">
+
+      <input type="button" value="Plot">
+      <br><br>
+
+      <label>x-scale:</label>
+      <input type="range" min="0" max="1" value="0" class="slider" step="0.05">
+      <br><br>
+      <label>y-scale:</label>
+      <input type="range" min="0" max="1" value="0" class="slider" step="0.05">
+      <br><br>
+      <label>z-scale:</label>
+      <input type="range" min="0" max="1" value="0" class="slider" step="0.05">
+      <br><br>
+      <label>Resolution:</label>
+      <input type="range" min="0" max="1" value="0" class="slider" step="0.05">
+      <br><br>
+    </div>
+
+    <canvas
+      id="canvas"
+    />
+>>>>>>> 6018f98c2ebab85e6625020d9b4dd79b63180957
 
     <br />
     <script type="text/javascript" src="init.js"  > </script>
@@ -57,7 +85,8 @@
     <script type="text/javascript" src="./shaders/vertex.js"  > </script>
     <script type="text/javascript" src="./shaders/fragment.js" > </script>
     <script type="text/javascript" src="shaderHandler.js" > </script>
-    <script type="text/javascript" src="math.js" > </script>
+    <!-- <script type="text/javascript" src="math.js" > </script> -->
+    <!-- <script type="text/javascript" src="example.js" defer > </script> -->
     <script type="text/javascript" src="App.js" defer > </script>
   </body>
 
