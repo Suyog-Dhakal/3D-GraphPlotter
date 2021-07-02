@@ -9,10 +9,13 @@
   margin-bottom: 0px;
 
 }
+
 #input-area {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
 }
+
+
 #input-box {
   margin-top: 90px;
   padding: 20px;
@@ -21,6 +24,8 @@
   width: fit-content;
   
 }
+
+
 #output-box {
   width: fit-content;
 }
