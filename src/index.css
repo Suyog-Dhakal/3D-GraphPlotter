@@ -12,7 +12,7 @@
 
 #input-area {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
+  margin-top: 20px;
 }
 
 
@@ -20,8 +20,9 @@
   margin-top: 90px;
   padding: 20px;
   padding-top: 0px;
-  margin-left: 10px;
+  margin-left: 580px;
   width: fit-content;
+
   
 }
 
@@ -31,10 +32,10 @@
 }
 
 #graphics-canvas {
-  width: 70%;
+  width: 80%;
   position: absolute;
-  margin-left: 40px;
-  margin-right: 0px;
+  margin-left: 20px;
+  margin-right: 20px;
   padding: 10px;
 }
 .scaling-input {
@@ -66,8 +67,8 @@ input[type=text], select {
   box-sizing: border-box;
 }
 .heading-tag {
-  text-align: center;
-  padding-left: 350px;
+  /* text-align: center; */
+  padding-left: 500px;
   margin-top: 0px;
 }
 #primary-header {
