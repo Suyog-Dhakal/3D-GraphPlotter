@@ -1,6 +1,6 @@
 // Gets global gl object
+const canvas = document.querySelector('canvas')
 const getGL = () => {
-  const canvas = document.querySelector('canvas')
   const gl = canvas.getContext('webgl')
   
   if (!gl) {
@@ -11,6 +11,16 @@ const getGL = () => {
   return gl
 } 
 const gl = getGL()
+
+// gl-matrix-lib 
+const {mat2, mat3, mat4, vec2, vec3, vec4} = glMatrix
+const DIMENSIONS = 3
+const ORIGIN = {
+  X: 0,
+  Y: 0,
+  Z: 0
+}
+const INIT_AXES_RANGE = 20
 
 // Initializes rendering screen of Graph canvas
 const initGraphCanvas = (() => {
