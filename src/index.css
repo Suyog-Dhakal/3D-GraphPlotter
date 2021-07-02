@@ -20,7 +20,7 @@
   margin-top: 90px;
   padding: 20px;
   padding-top: 0px;
-  margin-left: 580px;
+  margin-left: 680px;
   width: fit-content;
 
   
@@ -36,6 +36,7 @@
   position: absolute;
   margin-left: 20px;
   margin-right: 20px;
+  margin-top: 40px;
   padding: 10px;
 }
 .scaling-input {
