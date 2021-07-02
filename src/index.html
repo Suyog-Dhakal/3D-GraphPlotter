@@ -1,35 +1,57 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
     <title>GraphPlotter</title>
   </head>
   <body>
-    <br />
-    <div id="interface">
-      <label >z = </label>
-      <input type="text" id="function" value="x^2 + y^2">
+    <div id="box-container">
 
-      <input type="button" value="Plot">
-      <br><br>
+      <div id="output-box" class="big-box">
+        <div class="heading-tag">
+          <h1 id="primary-header"></h1>
+        </div>
+        
+        <container>
+          <canvas id="graphics-canvas">
+ <!-- render 3d graph here -->
+          </canvas>
+        </container>
+      </div>
 
-      <label>x-scale:</label>
-      <input type="range" min="0" max="1" value="0" class="slider" step="0.05">
-      <br><br>
-      <label>y-scale:</label>
-      <input type="range" min="0" max="1" value="0" class="slider" step="0.05">
-      <br><br>
-      <label>z-scale:</label>
-      <input type="range" min="0" max="1" value="0" class="slider" step="0.05">
-      <br><br>
-      <label>Resolution:</label>
-      <input type="range" min="0" max="1" value="0" class="slider" step="0.05">
-      <br><br>
-    </div>
+      <div class= "big-box" id="input-box">
 
-    <canvas
-      id="canvas"
-    />
+        <div id="input-area">
+          <label>z = </label>
+          <input type="text" id="function" placeholder="eg. sin(x)">  
+        </div>
+  
+        <button class="btn">Plot</button>
+  
+        <div class="scaling-input">
+          
+          <label id="x-scale">X-scale</label><br>
+          <input type="range" value= "0.6" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.05"><output>0.6</output>
+          <br><br>
+
+          <label id="y-scale">Y-scale</label><br>
+          <input type="range" value= "0.6" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.05"><output>0.6</output>
+          <br><br>
+
+          <label id="z-scale">Z-scale</label><br>
+          <input type="range" value= "0.6" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.05"><output>0.6</output>
+          <br><br>
+
+          <label class="resolution">Resolution</label><br>
+          <input type="range" value= "0.6" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.05"><output>0.6</output>
+          <br><br>
+        </div>
+     </div>
+
+     
+</div>
 
     <br />
     <script type="text/javascript" src="gl-matrix-lib.js"  > </script>
