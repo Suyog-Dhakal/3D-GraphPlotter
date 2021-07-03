@@ -20,7 +20,11 @@ const ORIGIN = {
   Y: 0,
   Z: 0
 }
-const INIT_AXES_RANGE = 20
+const INIT_AXES_RANGE = 2
+const X_AXIS = new Float32Array([1, 0, 0])
+const Y_AXIS = new Float32Array([0, 1, 0])
+const Z_AXIS = new Float32Array([0, 0, 1])
+
 
 // Initializes rendering screen of Graph canvas
 const initGraphCanvas = (() => {

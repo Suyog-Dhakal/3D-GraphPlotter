@@ -52,9 +52,7 @@ const main = (() => {
   gl.bufferData(gl.ARRAY_BUFFER, objMat, gl.STATIC_DRAW)
 
   const posVertAttribLoc = gl.getAttribLocation(shaderProg, 'u_ObjVert')
-  // const worldMatAttribLoc = gl.getUniformLocation(shaderProg, 'u_WorldMat')
-  // const viewMatAttribLoc = gl.getUniformLocation(shaderProg, 'u_ViewMat')
-  // const projMatAttribLoc = gl.getUniformLocation(shaderProg, 'u_ProjMat')
+  const mvpMatLoc = gl.getUniformLocation(shaderProg, 'u_MVP')
 
   gl.vertexAttribPointer(
     posVertAttribLoc,
@@ -64,28 +62,28 @@ const main = (() => {
     4 * Float32Array.BYTES_PER_ELEMENT,
     0
   )
-  // const worldMat = mat4.create()
-  // const viewMat = mat4.create()
-  // const projMat = mat4.create()
-  // console.log(worldMat)
-  // mat4.identity(worldMat)
-  // mat4.lookAt(
-  //   viewMat,
-  //   [0, 0, -5],
-  //   [0, 0, 0],
-  //   [0, 1, 0],
-  // )
-  // mat4.perspective(
-  //   projMat,
-  //   45 * Math.PI/180,
-  //   1,
-  //   0.1,
-  //   1000.0
-  // )
+  const modelMat = mat4.create()
+  const viewMat = mat4.create()
+  const projMat = mat4.create()
+  const mvpMat = mat4.create()
   
-  // gl.uniformMatrix4fv(worldMatAttribLoc, gl.FALSE, worldMat)
-  // gl.uniformMatrix4fv(viewMatAttribLoc, gl.FALSE, viewMat)
-  // gl.uniformMatrix4fv(projMatAttribLoc, gl.FALSE, projMat)
+  mat4.identity(modelMat)
+  mat4.lookAt(
+    viewMat,
+    [0, 0, -5], // eye
+    [0, 0, 0],  // center
+    [0, 1, 0],  // up
+  )
+  mat4.perspective(
+    projMat,
+    45 * Math.PI/180,
+    1,
+    0.1,
+    1000.0
+  )
+  mat4.multiply(mvpMat, projMat, viewMat, modelMat)
+  
+  gl.uniformMatrix4fv(mvpMatLoc, gl.false, mvpMat)
   
   gl.enableVertexAttribArray(posVertAttribLoc)
   
