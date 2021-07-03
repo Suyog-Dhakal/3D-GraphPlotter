@@ -18,12 +18,13 @@
 
 #input-box {
   margin-top: 90px;
-  padding: 20px;
-  padding-top: 0px;
-  margin-left: 680px;
+   /* padding: 20px; */
+  padding-top: 0px; 
+  margin-left: 1200px;
   width: fit-content;
+  position: relative;
+  width: 25%;
 
-  
 }
 
 
@@ -35,7 +36,7 @@
   width: 75%;
   position: absolute;
   margin-left: 20px;
-  margin-right: 20px;
+  margin-right: auto;
   margin-top: 40px;
   padding: 10px;
 }
@@ -79,4 +80,9 @@ input[type=text], select {
   font:bold;
   text-align: center;
   font-size: 29px;
+}
+
+.slider{
+  width: auto;
+  
 }
