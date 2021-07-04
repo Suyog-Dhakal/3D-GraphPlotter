@@ -6,11 +6,11 @@ precision mediump float;
 // uniform mat4 transform;
 // varying vec3 v_transformedNormal;
 
-attribute vec4 u_ObjVert;
+attribute vec3 u_ObjVert;
 uniform mat4 u_MVP;
 
 void main() {
-    gl_Position = u_MVP * u_ObjVert;
+    gl_Position = u_MVP * vec4(u_ObjVert, 1.0);
     
     // gl_Position = transform * a_position;
     // v_transformedNormal = normalize(vec3(transform * a_normal));

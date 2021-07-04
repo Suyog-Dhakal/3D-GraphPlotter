@@ -11,11 +11,9 @@
     <div id="box-container">
 
       <div id="output-box" class="big-box">
-        <container>
-          <canvas id="graphics-canvas">
-        <!-- render 3d graph here -->
-          </canvas>
-        </container>
+        <canvas id="graphics-canvas">
+      <!-- render 3d graph here -->
+        </canvas>
       </div>
 
       <div class= "big-box" id="input-box">
@@ -52,13 +50,14 @@
 
     <br />
     <script type="text/javascript" src="./lib/gl-matrix-lib.js"  > </script>
-    <script type="text/javascript" src="./lib/math-lib.js"  > </script>
-    <script type="text/javascript" src="init.js"  > </script>
+    <script type="text/javascript" src="./lib/math.js"  > </script>
+    <!-- <script type="text/javascript" src="./lib/math.js.map"  > </script> -->
+    <script type="text/javascript" src="./init.js"  > </script>
     <script type="text/javascript" src="./shaders/vertex.js"  > </script>
     <script type="text/javascript" src="./shaders/fragment.js" > </script>
-    <script type="text/javascript" src="shaderHandler.js" > </script>
-    <script type="text/javascript" src="inputParser.js" defer > </script>
-    <script type="text/javascript" src="App.js" defer > </script>
+    <script type="text/javascript" src="./shaderHandler.js" > </script>
+    <script type="text/javascript" src="./inputParser.js" defer > </script>
+    <script type="text/javascript" src="./App.js" defer > </script>
   </body>
 
 </html>

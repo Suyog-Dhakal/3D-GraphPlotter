@@ -20,7 +20,7 @@ const ORIGIN = {
   Y: 0,
   Z: 0
 }
-const INIT_AXES_RANGE = 2
+const INIT_AXES_RANGE = 1
 const X_AXIS = new Float32Array([1, 0, 0])
 const Y_AXIS = new Float32Array([0, 1, 0])
 const Z_AXIS = new Float32Array([0, 0, 1])
@@ -30,9 +30,11 @@ const Z_AXIS = new Float32Array([0, 0, 1])
 const initGraphCanvas = (() => {
   gl.clearColor(0.9, 0.9, 0.9, 1.0)
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-  gl.enable(gl.DEPTH_TEST)
+  // gl.enable(gl.DEPTH_TEST)
   // gl.enable(gl.CULL_FACE)
   // gl.frontFace(gl.CCW)
   // gl.cullFace(gl.BACK)
 })()
   
+
+console.log(math.sqrt(5))

@@ -1,28 +1,19 @@
 const coordAxes = {
   primitive: gl.LINES,
   vertBuff: gl.createBuffer(),
-  normalsVertBuff: gl.createBuffer(),
-  
-// normalsData: [
-//     1.0,0.0,0.0,
-//     1.0,0.0,0.0,
-//     1.0,0.0,0.0,
-//     1.0,0.0,0.0,
-//     1.0,0.0,0.0,
-//     1.0,0.0,0.0
-// ],      
+  normalsVertBuff: gl.createBuffer(),     
       
   // Initialize vertices
   axesVertices: new Float32Array([
     // X-axis coordinates
-    -INIT_AXES_RANGE,  ORIGIN.Y,         ORIGIN.Z,        1,
-     INIT_AXES_RANGE,  ORIGIN.Y,         ORIGIN.Z,        1,
+    -INIT_AXES_RANGE,  ORIGIN.Y,         ORIGIN.Z,       
+     INIT_AXES_RANGE,  ORIGIN.Y,         ORIGIN.Z,       
     // Y-axis coordinates
-    ORIGIN.X,         -INIT_AXES_RANGE,  ORIGIN.Z,        1,
-    ORIGIN.X,          INIT_AXES_RANGE,  ORIGIN.Z,        1,
+    ORIGIN.X,         -INIT_AXES_RANGE,  ORIGIN.Z,       
+    ORIGIN.X,          INIT_AXES_RANGE,  ORIGIN.Z,       
     // Z-axis coordinates
-    ORIGIN.X,          ORIGIN.Y,        -INIT_AXES_RANGE, 1,
-    ORIGIN.X,          ORIGIN.Y,         INIT_AXES_RANGE, 1,
+    ORIGIN.X,          ORIGIN.Y,        -INIT_AXES_RANGE,
+    ORIGIN.X,          ORIGIN.Y,         INIT_AXES_RANGE,
   ]),
 
   // setVertices: (minX, maxX, minY, maxY, minZ, maxZ) => {
@@ -56,12 +47,13 @@ const main = (() => {
 
   gl.vertexAttribPointer(
     posVertAttribLoc,
-    4,
+    3,
     gl.FLOAT,
     gl.FALSE,
-    4 * Float32Array.BYTES_PER_ELEMENT,
+    3 * Float32Array.BYTES_PER_ELEMENT,
     0
   )
+  gl.enableVertexAttribArray(posVertAttribLoc)
   const modelMat = mat4.create()
   const viewMat = mat4.create()
   const projMat = mat4.create()
@@ -70,7 +62,7 @@ const main = (() => {
   mat4.identity(modelMat)
   mat4.lookAt(
     viewMat,
-    [0, 0, -5], // eye
+    [5, 5, -5], // eye
     [0, 0, 0],  // center
     [0, 1, 0],  // up
   )
@@ -85,12 +77,12 @@ const main = (() => {
   
   gl.uniformMatrix4fv(mvpMatLoc, gl.false, mvpMat)
   
-  gl.enableVertexAttribArray(posVertAttribLoc)
+  
   
   gl.drawArrays(
     gl.LINES,
     0,
-    3
+    6
   )
   
     
