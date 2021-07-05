@@ -34,7 +34,4 @@ const initGraphCanvas = (() => {
   // gl.enable(gl.CULL_FACE)
   // gl.frontFace(gl.CCW)
   // gl.cullFace(gl.BACK)
-})()
-  
-
-console.log(math.sqrt(5))
+})
