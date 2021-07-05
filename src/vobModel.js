@@ -85,7 +85,6 @@ var VOBModel = function (obj_model) {
     gl.enableVertexAttribArray(color_loc);
 
     // Draw all of the triangles
-
     gl.drawArrays(obj_model.primitive, 0, 3 * 2);
 
   };

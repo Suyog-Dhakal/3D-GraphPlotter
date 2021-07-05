@@ -33,12 +33,13 @@
 }
 
 #graphics-canvas {
-  width: 75%;
+  width: 1150px;
+  height: 800px;
   position: absolute;
-  margin-left: 20px;
+  /* margin-left: 20px;
   margin-right: auto;
   margin-top: 40px;
-  padding: 10px;
+  padding: 10px; */
 }
 .scaling-input {
   margin: 40px 20px 0px 20px;

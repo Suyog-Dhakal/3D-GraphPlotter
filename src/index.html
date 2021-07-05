@@ -32,20 +32,24 @@
         <div class="scaling-input">
           
           <label id="x-scale">X-scale</label><br>
-          <input type="range" value= "0.6" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.05"><output>0.6</output>
+          <input type="range" value= "0.5" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.1" id="rangeX" onclick="getSliderX()"><output>0.5</output>
           <br><br>
 
           <label id="y-scale">Y-scale</label><br>
-          <input type="range" value= "0.6" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.05"><output>0.6</output>
+          <input type="range" value= "0.5" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.1"><output>0.5</output>
           <br><br>
 
           <label id="z-scale">Z-scale</label><br>
-          <input type="range" value= "0.6" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.05"><output>0.6</output>
+          <input type="range" value= "0.5" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.1"><output>0.5</output>
           <br><br>
 
           <label class="resolution">Resolution</label><br>
-          <input type="range" value= "0.6" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.05"><output>0.6</output>
+          <input type="range" value= "0.5" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.1"><output>0.5</output>
           <br><br>
+
+          <label class="animate">Animate</label><br>
+          <input id="animate-btn" type="checkbox">
+          
         </div>
      </div>
 

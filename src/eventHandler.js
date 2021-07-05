@@ -27,7 +27,7 @@ const EventHandler = function (scene, control_id_list) {
 
     if (animate_is_on) {
       scene.animate_active = true;
-      self.animate();
+      // self.animate();
     }
   };
 
@@ -35,9 +35,9 @@ const EventHandler = function (scene, control_id_list) {
   self.mouse_dragged = function (event) {
     var delta_x, delta_y;
 
-    //console.log("drag event x,y = " + event.clientX + " " + event.clientY + "  " + event.which);
+    // console.log("drag event x,y = " + event.clientX + " " + event.clientY + "  " + event.which);
     if (start_of_mouse_drag) {
-      delta_x = event.clientX - start_of_mouse_drag.clientX;
+      delta_x =  (event.clientX - start_of_mouse_drag.clientX);
       delta_y = -(event.clientY - start_of_mouse_drag.clientY);
       //console.log("moved: " + delta_x + " " + delta_y);
 
@@ -77,7 +77,7 @@ const EventHandler = function (scene, control_id_list) {
     control = $(event.target);
     if (control) {
       switch (control.attr('id')) {
-        case "my_pause":
+        case "animate-btn":
           if (control.is(":checked"))  {
             animate_is_on = true;
             scene.animate_active = true;
@@ -126,16 +126,13 @@ const EventHandler = function (scene, control_id_list) {
   // Constructor code for the class.
 
   // Private variables
-  // var out = scene.out;    // Debugging and output goes here.
-  // var canvas = scene.canvas;
-
   // Remember the current state of events
   var start_of_mouse_drag = null;
   var previous_time = Date.now();
   var animate_is_on = scene.animate_active;
 
   // Control the rate at which animations refresh
-  var frame_rate = 16; // 16 milliseconds = 1/60 sec
+  var frame_rate = 5; // 16 milliseconds = 1/60 sec
 
   // Add an onclick callback to each HTML control
   var j;

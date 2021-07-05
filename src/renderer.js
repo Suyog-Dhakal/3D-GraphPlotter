@@ -9,27 +9,24 @@
 //-------------------------------------------------------------------------
 var SceneRenderer = function (controls) {
 
-  var self = this; // Store a local reference to the new object.
+  let self = this; // Store a local reference to the new object.
 
   //-----------------------------------------------------------------------
   // Public function to render the scene.
   self.render = function () {
-    var j, model_names;
-
     // Clear the entire canvas window background with the clear color
     // out.display_info("Clearing the screen");
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     // Build individual transforms
-    mat4.identity(mvp_mat);
-    mat4.rotateX(rot_x_mat, mvp_mat, self.angle_x, X_AXIS);
-    mat4.rotateY(rot_y_mat, mvp_mat, self.angle_y, Y_AXIS);
+    mat4.rotateX(rot_x_mat, rot_x_mat, self.angle_x);
+    mat4.rotateY(rot_y_mat, rot_y_mat, self.angle_y);
 
     // Combine the transforms into a single transformation
-    mat4.multiply(mvp_mat, mvp_mat, rot_x_mat, rot_y_mat);
+    mat4.multiply(mvp_mat, mvp_mat, rot_x_mat);
+    mat4.multiply(mvp_mat, mvp_mat, rot_y_mat);
 
-    model_VOBs[coordAxes].render(mvp_loc, mvp_mat);
-
+    vob_model.coord_axes.render(mvp_loc, mvp_mat);
   };
 
   //-----------------------------------------------------------------------
@@ -37,17 +34,14 @@ var SceneRenderer = function (controls) {
   self.delete = function () {
 
     // Clean up shader programs
-    gl.deleteShader(program.vShader);
-    gl.deleteShader(program.fShader);
-    gl.deleteProgram(program);
-    program = null;
+    gl.deleteProgram(shaderProg);
 
     // Delete each model's VOB
-    model_VOBs[coordAxes].delete(gl);
-    model_VOBs = null;
+    vob_model.coord_axes.delete();
+    vob_model = null;
 
     // Remove all event handlers
-    var id = '#' + canvas_id;
+    var id = '#' + 'graphics-canvas';
     $( id ).unbind( "mousedown", events.mouse_drag_started );
     $( id ).unbind( "mouseup", events.mouse_drag_ended );
     $( id ).unbind( "mousemove", events.mouse_dragged );
@@ -65,19 +59,22 @@ var SceneRenderer = function (controls) {
 
   // Private variables
   // var out = new ErrorHandler(canvas)
-  var gl = null;
-  var model_VOBs = {};
+  let gl = null;
+  let vob_model = {};
 
-  var mvp_mat = mat4.create();
-  var mvp_loc = 0;
-  var rot_x_mat = mat4.create();
-  var rot_y_mat = mat4.create();
+  let mvp_loc = 0;
+  let mvp_mat = mat4.create()
+  let model_mat = mat4.create()
+  let view_mat = mat4.create()
+  let proj_mat = mat4.create()
+  let rot_x_mat = mat4.create()
+  let rot_y_mat = mat4.create()
 
   // Public variables that will be changed by event handlers.
   self.canvas = null;
   self.angle_x = 0.0;
   self.angle_y = 0.0;
-  self.animate_active = true;
+  self.animate_active = false;
 
   // Get the rendering context for the canvas
   self.canvas = canvas;
@@ -92,12 +89,27 @@ var SceneRenderer = function (controls) {
   // Remember the location of the transformation variable in the shader program
   mvp_loc = gl.getUniformLocation(shaderProg, "u_MVP");
 
-  model_VOBs[coordAxes] = new VOBModel(CoordAxes)
+  mat4.lookAt(
+    view_mat,
+    INIT_EYE_POS,   // eye
+    [0, 0, 0],      // center
+    Y_AXIS,         // up
+  )
+  mat4.perspective(
+    proj_mat,
+    45 * Math.PI/180,
+    1,
+    0.1,
+    1000.0
+  )
+  mat4.multiply(mvp_mat, proj_mat, view_mat, model_mat)
+
+  vob_model.coord_axes = new VOBModel(CoordAxes)
 
   // Set up callbacks for user and timer events
   var events;
   events = new EventHandler(self, controls);
-  events.animate();
+  // events.animate();
 
   var id = '#graphics-canvas';
   $( id ).mousedown( events.mouse_drag_started );

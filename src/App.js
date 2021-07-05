@@ -1,8 +1,7 @@
-const main = (() => {  
-  gl.useProgram(shaderProg)
-  
-  scene = new SceneRenderer(["animate_btn"])
-  
+const main = (() => {
+  let scene = new SceneRenderer(["animate_btn"])
+  scene.render()
+  // scene.delete()
 })()
 
 // const objMat = coordAxes.axesVertices

@@ -33,8 +33,8 @@ const Z_AXIS = new Float32Array([0, 0, 1])
 
 // Initializes rendering screen of Graph canvas
 const initGraphCanvas = (() => {
-  // gl.viewport(0.0, 0.0, canvas.width, canvas.height)
-  gl.clearColor(0.9, 0.9, 0.9, 1.0)
+  gl.viewport(0.0, 0.0, canvas.width, canvas.height)
+  gl.clearColor(0.95, 0.95, 0.95, 1.0)
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
   // gl.enable(gl.DEPTH_TEST)
   // gl.enable(gl.CULL_FACE)
