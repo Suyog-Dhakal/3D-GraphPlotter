@@ -1,33 +1,31 @@
-const compileVertexShader = (src) => {
-  const vertexShader = gl.createShader(gl.VERTEX_SHADER)
-  gl.shaderSource(vertexShader, src)
-  gl.compileShader(vertexShader)
-
-  if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-    console.log('ERR compiling vertex shader: ', gl.getShaderInfoLog(vertexShader))
-    return
-  }
-
-  return vertexShader
-}
-
-const compileFragmentShader = (src) => {
-  const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
-  gl.shaderSource(fragmentShader, src)
-  gl.compileShader(fragmentShader)
-
-  if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-    console.log('ERR compiling fragment shader: ', gl.getShaderInfoLog(fragmentShader))
-    return
-  }
-
-  return fragmentShader
-}
-
-// Returns a program with vertex and fragment shader attached
-const getShaderProgram = () => {
-  const vertexShader = compileVertexShader(vertexShaderSrc)
-  const fragmentShader = compileFragmentShader(fragmentShaderSrc)
+// Creates and attaches vertex and fragment shaders to a program
+const shaderProg = (() => {
+  // Create and compile vertex shader
+  const vertexShader = ((src) => {
+    const vs = gl.createShader(gl.VERTEX_SHADER)
+    gl.shaderSource(vs, src)
+    gl.compileShader(vs)
+    
+    if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
+      console.log('ERR compiling vertex shader: ', gl.getShaderInfoLog(vs))
+      return null
+    }
+    
+    return vs
+  })(vertexShaderSrc)
+  // Create and compile fragment shader
+  const fragmentShader = ((src) => {
+    const fs = gl.createShader(gl.FRAGMENT_SHADER)
+    gl.shaderSource(fs, src)
+    gl.compileShader(fs)
+  
+    if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
+      console.log('ERR compiling fragment shader: ', gl.getShaderInfoLog(fs))
+      return null
+    }
+  
+    return fs
+  })(fragmentShaderSrc)
 
   const program = gl.createProgram()
   gl.attachShader(program, vertexShader)
@@ -36,15 +34,16 @@ const getShaderProgram = () => {
   gl.linkProgram(program)
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
     console.log('ERR linking program: ', gl.getProgramInfoLog(program))
-    return
+    gl.deleteShader(vertexShader)
+    gl.deleteShader(fragmentShader)
+    return null
   }
   
   gl.validateProgram(program)
   if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
     console.log('ERR validating program: ', gl.getProgramInfoLog(program))
-    return
+    return null
   }
-
-  gl.useProgram(program)
+  
   return program
-}
+})()

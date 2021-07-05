@@ -6,9 +6,10 @@ precision mediump float;
 // uniform float u_ambientStrength;
 // varying vec3 v_transformedNormal;
 
+varying vec3 v_Color;
+
 void main() {
-    vec4 color = vec4(0, 0, 0, 1);
-    gl_FragColor = color;
+    gl_FragColor = vec4(v_Color, 1);
     
     // more distant points are less visible
     // vec4 color = vec4(vec3(u_color), 1.0 - u_fading * gl_FragCoord[2]);

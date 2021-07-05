@@ -4,7 +4,11 @@
 <html>
   <head>
     <link rel="stylesheet" href="index.css" />
-  
+    <script type="text/javascript" src="./lib/jquery.js"  > </script>
+    <script type="text/javascript" src="./lib/gl-matrix-lib.js"  > </script>
+    <script type="text/javascript" src="./lib/math.js"  > </script>
+    <!-- <script type="text/javascript" src="./lib/math.js.map"  > </script> -->
+    
     <title>GraphPlotter</title>
   </head>
   <body>
@@ -49,13 +53,15 @@
     </div>
 
     <br />
-    <script type="text/javascript" src="./lib/gl-matrix-lib.js"  > </script>
-    <script type="text/javascript" src="./lib/math.js"  > </script>
-    <!-- <script type="text/javascript" src="./lib/math.js.map"  > </script> -->
     <script type="text/javascript" src="./init.js"  > </script>
+    <script type="text/javascript" src="./models/coordinateAxes.js"  > </script>
     <script type="text/javascript" src="./shaders/vertex.js"  > </script>
     <script type="text/javascript" src="./shaders/fragment.js" > </script>
     <script type="text/javascript" src="./shaderHandler.js" > </script>
+    <script type="text/javascript" src="./vobModel.js" > </script>
+    <!-- <script type="text/javascript" src="./errorHandler.js" > </script> -->
+    <script type="text/javascript" src="./eventHandler.js" > </script>
+    <script type="text/javascript" src="./renderer.js" > </script>
     <script type="text/javascript" src="./inputParser.js" defer > </script>
     <script type="text/javascript" src="./App.js" defer > </script>
   </body>
