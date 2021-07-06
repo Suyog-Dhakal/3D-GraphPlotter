@@ -30,6 +30,8 @@ const X_AXIS = new Float32Array([1, 0, 0])
 const Y_AXIS = new Float32Array([0, 1, 0])
 const Z_AXIS = new Float32Array([0, 0, 1])
 
+const SAMPLE_STEP_SIZE = 0.1
+
 
 // Initializes rendering screen of Graph canvas
 const initGraphCanvas = (() => {
