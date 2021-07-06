@@ -25,6 +25,7 @@ var SceneRenderer = function (controls) {
     // Combine the transforms into a single transformation
     mat4.multiply(mvp_mat, mvp_mat, rot_x_mat);
     mat4.multiply(mvp_mat, mvp_mat, rot_y_mat);
+    // mat4.multiply(mvp_mat, proj_mat, view_mat, model_mat)
 
     vob_model.coord_axes.render(mvp_loc, mvp_mat);
   };
