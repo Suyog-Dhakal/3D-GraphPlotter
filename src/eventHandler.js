@@ -37,12 +37,12 @@ const EventHandler = function (scene, control_id_list) {
 
     // console.log("drag event x,y = " + event.clientX + " " + event.clientY + "  " + event.which);
     if (start_of_mouse_drag) {
-      delta_x =  (event.clientX - start_of_mouse_drag.clientX) / canvas.width;
-      delta_y = -(event.clientY - start_of_mouse_drag.clientY) / canvas.height;
+      delta_x =  (event.clientX - start_of_mouse_drag.clientX);
+      delta_y = -(event.clientY - start_of_mouse_drag.clientY);
       //console.log("moved: " + delta_x + " " + delta_y);
 
       scene.angle_x += delta_y;
-      scene.angle_y += delta_x;
+      scene.angle_y -= delta_x;
       scene.render();
 
       start_of_mouse_drag = event;

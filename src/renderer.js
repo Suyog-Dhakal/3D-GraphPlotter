@@ -98,7 +98,7 @@ var SceneRenderer = function (controls) {
   )
   mat4.perspective(
     proj_mat,
-    45 * Math.PI/180,
+    45 * Math.PI / 180,
     1,
     0.1,
     1000.0
