@@ -24,7 +24,7 @@
 
         <div id="input-area">
           <label>z = </label>
-          <input type="text" id="function" placeholder="eg. sin(x) + cos(y)">  
+          <input type="text" id="function" value="sin(x) + cos(y)" >  
         </div>
   
         <button class="btn" onclick="">Plot</button>
@@ -32,11 +32,11 @@
         <div class="scaling-input">
           
           <label id="x-scale">X-scale</label><br>
-          <input type="range" value= "0.5" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.1" id="rangeX" onclick="getSliderX()"><output>0.5</output>
+          <input type="range" value= "0.5" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.1" id="rangeX" onclick=""><output>0.5</output>
           <br><br>
 
           <label id="y-scale">Y-scale</label><br>
-          <input type="range" value= "0.5" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.1" id="rangeY" onclick="getSliderY()" ><output>0.5</output>
+          <input type="range" value= "0.5" min="0" max="1" oninput="this.nextElementSibling.value = this.value" class="slider" step="0.1" id="rangeY" onclick="" ><output>0.5</output>
           <br><br>
 
           <label id="z-scale">Z-scale</label><br>
@@ -59,6 +59,7 @@
     <br />
     <script type="text/javascript" src="./init.js"  > </script>
     <script type="text/javascript" src="./models/coordinateAxes.js"  > </script>
+    <script type="text/javascript" src="./samplesGenerator.js" > </script>
     <script type="text/javascript" src="./models/graphObject.js"  > </script>
     <script type="text/javascript" src="./shaders/vertex.js"  > </script>
     <script type="text/javascript" src="./shaders/fragment.js" > </script>
@@ -67,7 +68,6 @@
     <!-- <script type="text/javascript" src="./errorHandler.js" > </script> -->
     <script type="text/javascript" src="./eventHandler.js" > </script>
     <script type="text/javascript" src="./renderer.js" > </script>
-    <script type="text/javascript" src="./samplesGenerator.js" defer > </script>
     <script type="text/javascript" src="./App.js" defer > </script>
   </body>
 

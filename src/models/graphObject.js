@@ -13,4 +13,5 @@ const GraphObject = new (function() {
   self.update = function() {
     samp_generator.updateSamples()
   }
+  self.update()
 })()

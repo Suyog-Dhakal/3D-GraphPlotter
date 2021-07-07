@@ -28,6 +28,7 @@ var SceneRenderer = function (controls) {
     // mat4.multiply(mvp_mat, proj_mat, view_mat, model_mat)
 
     vob_model.coord_axes.render(mvp_loc, mvp_mat);
+    vob_model.graph_obj.render(mvp_loc, mvp_mat);
   };
 
   //-----------------------------------------------------------------------
@@ -39,6 +40,7 @@ var SceneRenderer = function (controls) {
 
     // Delete each model's VOB
     vob_model.coord_axes.delete();
+    vob_model.graph_obj.delete();
     vob_model = null;
 
     // Remove all event handlers
@@ -106,6 +108,7 @@ var SceneRenderer = function (controls) {
   mat4.multiply(mvp_mat, proj_mat, view_mat, model_mat)
 
   vob_model.coord_axes = new VOBModel(CoordAxes)
+  vob_model.graph_obj  = new VOBModel(GraphObject)
 
   // Set up callbacks for user and timer events
   var events;

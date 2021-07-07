@@ -10,10 +10,28 @@ const SampleGenerator = function() {
   let z_samples = []
   let scope = {x: x_samples, y: y_samples}
     
-  const updateInputs = function() {
+  const updateRanges = function() {
     range_x = document.getElementById("rangeX").value
     range_y = document.getElementById("rangeY").value
+  }
+
+  const updateEqn = function() {
     input_str = document.getElementById("function").value
+  }
+
+  const updateXYSamples = function() {    
+    minX = -10 * range_x
+    maxX =  10 * range_x
+    minY = -10 * range_y
+    maxY =  10 * range_y
+    
+    for (let x = minX, y = minY;
+      x <= maxX || y <= maxY; 
+      x += SAMPLE_STEP_SIZE, y += SAMPLE_STEP_SIZE
+    ) {
+        x_samples.push(x)
+        y_samples.push(y)
+    }
   }
 
   const updateZSamples = function() {
@@ -21,6 +39,7 @@ const SampleGenerator = function() {
       z_samples = math.evaluate(input_str, scope)
     }
   }
+  
 
   const zipSamples = function() {
     let zipped = []
@@ -35,20 +54,9 @@ const SampleGenerator = function() {
   }
     
   self.updateSamples = function() {
-    updateInputs()
-
-    minX = -10 * range_x
-    maxX =  10 * range_x
-    minY = -10 * range_y
-    maxY =  10 * range_y
-    
-    for (let x = minX, y = minY;
-      x <= maxX || y <= maxY; 
-      x += SAMPLE_STEP_SIZE, y += SAMPLE_STEP_SIZE
-    ) {
-        x_samples.push(x)
-        y_samples.push(y)
-    }
+    updateRanges()
+    updateEqn()
+    updateXYSamples()
     updateZSamples()
 
     self.samples = new Float32Array([zipSamples()])
