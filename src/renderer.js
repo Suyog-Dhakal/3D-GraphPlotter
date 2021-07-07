@@ -23,9 +23,9 @@ var SceneRenderer = function (controls) {
     mat4.rotateY(rot_y_mat, rot_y_mat, self.angle_y);
 
     // Combine the transforms into a single transformation
-    mat4.multiply(mvp_mat, mvp_mat, rot_x_mat);
-    mat4.multiply(mvp_mat, mvp_mat, rot_y_mat);
-    // mat4.multiply(mvp_mat, proj_mat, view_mat, model_mat)
+    mat4.multiply(model_mat, model_mat, rot_x_mat);
+    mat4.multiply(model_mat, model_mat, rot_y_mat);
+    mat4.multiply(mvp_mat, mvp_mat, model_mat)
 
     vob_model.coord_axes.render(mvp_loc, mvp_mat);
     vob_model.graph_obj.render(mvp_loc, mvp_mat);
@@ -105,7 +105,7 @@ var SceneRenderer = function (controls) {
     0.1,
     1000.0
   )
-  mat4.multiply(mvp_mat, proj_mat, view_mat, model_mat)
+  mat4.multiply(mvp_mat, proj_mat, view_mat)
 
   vob_model.coord_axes = new VOBModel(CoordAxes)
   vob_model.graph_obj  = new VOBModel(GraphObject)

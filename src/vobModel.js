@@ -8,7 +8,6 @@ var VOBModel = function (obj_model) {
 
   //-----------------------------------------------------------------------
   function _createGpuVob(data) {
-    // console.log(obj_model, data)
     // Create a buffer object
     var buffer_id;
 
@@ -57,36 +56,70 @@ var VOBModel = function (obj_model) {
     // Set the transform for all the faces, lines, and points
     gl.uniformMatrix4fv(transform_loc, false, transform);
 
-    // Activate the model's triangle vertex object buffer (VOB)
-    gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.posVertBuffId);
+    if (obj_model.primitive === gl.LINES) {
+      // Activate 
+      gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.posVertBuffId);
 
-    // Bind the vertices VOB to the 'a_Vertex' shader variable
-    gl.vertexAttribPointer(
-      vert_loc,
-      3,
-      gl.FLOAT,
-      gl.FALSE,
-      3 * Float32Array.BYTES_PER_ELEMENT,
-      0
-    )
-    gl.enableVertexAttribArray(vert_loc)
+      // Bind the vertices VOB to the 'a_ObjVert' shader variable
+      gl.vertexAttribPointer(
+        vert_loc,
+        3,
+        gl.FLOAT,
+        gl.FALSE,
+        0,
+        0
+      )
+      gl.enableVertexAttribArray(vert_loc)
 
-    // Activate the model's triangle color object buffer
-    gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.colorVertBuffId);
+      // Activate the coordinate axes color object buffer
+      gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.colorVertBuffId);
 
-    // // Bind the colors VOB to the 'a_Color' shader variable
-    gl.vertexAttribPointer(
-      color_loc, 
-      3, 
-      gl.FLOAT, 
-      gl.FALSE, 
-      3 * Float32Array.BYTES_PER_ELEMENT, 
-      0
-    );
-    gl.enableVertexAttribArray(color_loc);
+      // // Bind the colors VOB to the 'a_Color' shader variable
+      gl.vertexAttribPointer(
+        color_loc, 
+        3, 
+        gl.FLOAT, 
+        gl.FALSE, 
+        0, 
+        0
+      );
+      gl.enableVertexAttribArray(color_loc);
 
-    // Draw all of the triangles
-    gl.drawArrays(obj_model.primitive, 0, 3 * 2);
+      // Draw coordinate axes
+      gl.drawArrays(obj_model.primitive, 0, 3 * 2);
+    }
+
+    if (obj_model.primitive === gl.TRIANGLE_STRIP) {
+      // Activate the model's triangle vertex object buffer (VOB)
+      gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.posVertBuffId);
+
+      // Bind the vertices VOB to the 'a_Vertex' shader variable
+      gl.vertexAttribPointer(
+        vert_loc,
+        3,
+        gl.FLOAT,
+        gl.FALSE,
+        0,
+        0
+      )
+      gl.enableVertexAttribArray(vert_loc)
+
+      // Activate the model's triangle color object buffer
+      gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.colorVertBuffId);
+
+      // // Bind the colors VOB to the 'a_Color' shader variable
+      gl.vertexAttribPointer(
+        color_loc, 
+        3, 
+        gl.FLOAT, 
+        gl.FALSE, 
+        0, 
+        0
+      );
+      gl.enableVertexAttribArray(color_loc);
+
+      gl.drawArrays(gl.TRIANGLES, 0, obj_model.samples.length / 3)
+    }
 
   };
 
