@@ -8,6 +8,7 @@ var VOBModel = function (obj_model) {
 
   //-----------------------------------------------------------------------
   function _createGpuVob(data) {
+    // console.log(obj_model, data)
     // Create a buffer object
     var buffer_id;
 

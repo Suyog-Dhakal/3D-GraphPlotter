@@ -1,4 +1,5 @@
-const SampleGenerator = function() {
+const SampleGenerator = new (function() {
+  self = this
   
   self.samples = null
   
@@ -11,8 +12,8 @@ const SampleGenerator = function() {
   let scope = {x: x_samples, y: y_samples}
     
   const _updateRanges = function() {
-    range_x = document.getElementById("rangeX").value
-    range_y = document.getElementById("rangeY").value
+    range_x = document.getElementById("rangeX").value * 10
+    range_y = document.getElementById("rangeY").value * 10
   }
 
   const _updateEqn = function() {
@@ -24,8 +25,8 @@ const SampleGenerator = function() {
   const _updateXSamples = function() {
     old_range_x = range_x
 
-    minX = -10 * range_x
-    maxX =  10 * range_x
+    minX = -range_x
+    maxX =  range_x
     
     for (let x = minX; x <= maxX; x += SAMPLE_STEP_SIZE) {
         x_samples.push(x)
@@ -35,8 +36,8 @@ const SampleGenerator = function() {
   const _updateYSamples = function() {
     old_range_y = range_y
     
-    minY = -10 * range_y
-    maxY =  10 * range_y
+    minY = -range_y
+    maxY =  range_y
     
     for (let y = minY; y <= maxY; y += SAMPLE_STEP_SIZE) {
         y_samples.push(y)
@@ -54,9 +55,9 @@ const SampleGenerator = function() {
 
   const _zipSamples = function() {
     let zipped = []
-    limit = range_x < range_y ? range_x : range_y
+    range = range_x < range_y ? x_samples.length : y_samples.length
 
-    for (let i = 0; i < limit; ++i) {
+    for (let i = 0; i < range; ++i) {
       zipped.push(x_samples[i])
       zipped.push(y_samples[i])
       zipped.push(z_samples[i])
@@ -64,7 +65,7 @@ const SampleGenerator = function() {
     return zipped
   }
     
-  self.updateSamples = function() {
+  self.update = function() {
     _updateRanges()
     _updateEqn()
     
@@ -72,7 +73,8 @@ const SampleGenerator = function() {
     if (old_range_y != range_y) _updateYSamples()
     if (old_input_str != input_str) _updateZSamples()
 
-    self.samples = new Float32Array([_zipSamples()])
+    self.samples = new Float32Array(_zipSamples())
   }
+  self.update()
 
-}
+})()
