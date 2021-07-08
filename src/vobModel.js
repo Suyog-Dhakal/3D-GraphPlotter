@@ -118,7 +118,7 @@ var VOBModel = function (obj_model) {
       );
       gl.enableVertexAttribArray(color_loc);
 
-      gl.drawArrays(gl.TRIANGLES, 0, obj_model.samples.length / 3)
+      gl.drawArrays(gl.LINE_STRIP, 0, obj_model.samples.length / 3)
     }
 
   };
