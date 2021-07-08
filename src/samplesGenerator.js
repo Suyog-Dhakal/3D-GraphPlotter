@@ -65,6 +65,13 @@ const SampleGenerator = new (function() {
       zipped.push(y_samples[i])
       zipped.push(z_samples[i])
     }
+    
+    for (let i = 0; i < range; ++i) {
+      for (let j = 0; j < range; ++j) {
+
+      }
+    }
+    
     return zipped
   }
     

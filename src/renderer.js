@@ -95,15 +95,15 @@ var SceneRenderer = function (controls) {
   mat4.lookAt(
     view_mat,
     INIT_EYE_POS,   // eye
-    [0, 0, 0],      // center
+    CENTER,         // center
     Y_AXIS,         // up
   )
   mat4.perspective(
     proj_mat,
-    45 * Math.PI / 180,
-    1,
-    0.1,
-    1000.0
+    PROJECTION_ANGLE,
+    ASPECT_RATIO,
+    NEAR_Z,
+    FAR_Z
   )
   mat4.multiply(mvp_mat, proj_mat, view_mat)
 

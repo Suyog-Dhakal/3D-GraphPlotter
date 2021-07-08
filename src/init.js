@@ -16,7 +16,12 @@ const gl = getGL(canvas)
 const {mat2, mat3, mat4, vec2, vec3, vec4} = glMatrix
 
 // initial values
-
+const CENTER = [0, 0, 0]
+const PROJECTION_ANGLE = 45 * Math.PI / 180
+// const ASPECT_RATIO = canvas.width / canvas.height
+const ASPECT_RATIO = 1
+const NEAR_Z = 0.1
+const FAR_Z = 1000
 const INIT_EYE_POS = [5, 4, 5]
 
 const DIMENSIONS = 3
