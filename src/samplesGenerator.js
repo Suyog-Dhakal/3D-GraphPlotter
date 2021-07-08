@@ -6,7 +6,7 @@ const SampleGenerator = new (function() {
   let minX, maxX, minY, maxY
   let range_x, range_y, old_range_x, old_range_y
   let input_str = "", old_input_str = ""
-  let resolution, old_resolution
+  let samples_step, old_sample_step
   let x_samples = []
   let y_samples = []
   let z_samples = []
@@ -22,7 +22,7 @@ const SampleGenerator = new (function() {
   }
 
   const _updateResolution = function() {
-    resolution = document.getElementById("resolution_scale").value
+    samples_step = 1 - document.getElementById("resolution_scale").value
   }
 
   const _updateXSamples = function() {
@@ -31,7 +31,7 @@ const SampleGenerator = new (function() {
     minX = -range_x
     maxX =  range_x
     
-    for (let x = minX; x <= maxX; x += (1-resolution)) {
+    for (let x = minX; x <= maxX; x += samples_step) {
         x_samples.push(x)
     }
   }
@@ -42,7 +42,7 @@ const SampleGenerator = new (function() {
     minY = -range_y
     maxY =  range_y
     
-    for (let y = minY; y <= maxY; y += (1-resolution)) {
+    for (let y = minY; y <= maxY; y += samples_step) {
         y_samples.push(y)
     }
   }
