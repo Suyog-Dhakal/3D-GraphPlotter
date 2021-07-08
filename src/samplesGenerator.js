@@ -48,12 +48,12 @@ const SampleGenerator = new (function() {
   }
 
   const _zipWithZSamples = function() {
+    if (!input_str) return null
+
     let zipped = []
     old_input_str = input_str
     old_sample_step = samples_step
     range = range_x < range_y ? x_samples.length : y_samples.length
-    
-    if (!input_str) return null
     
     for (x of x_samples) {
       for (y of y_samples) {

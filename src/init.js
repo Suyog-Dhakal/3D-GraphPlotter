@@ -44,7 +44,7 @@ const initGraphCanvas = (() => {
   gl.clearColor(0.95, 0.95, 0.95, 1.0)
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
   gl.lineWidth(0.01)
-  // console.log(gl.getParameter(gl.LINE_WIDTH))
+  // console.log(gl.getParameter(gl.ALIASED_LINE_WIDTH_RANGE))
   // gl.enable(gl.DEPTH_TEST)
   // gl.enable(gl.CULL_FACE)
   // gl.frontFace(gl.CCW)
