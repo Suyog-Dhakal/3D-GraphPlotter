@@ -9,8 +9,6 @@ const SampleGenerator = new (function() {
   let samples_step, old_sample_step
   let x_samples = []
   let y_samples = []
-  let z_samples = []
-  let scope = {x: x_samples, y: y_samples}
     
   const _updateRanges = function() {
     range_x = document.getElementById("rangeX").value * 10
@@ -25,8 +23,9 @@ const SampleGenerator = new (function() {
     samples_step = 1 - document.getElementById("resolution_scale").value
   }
 
-  const _updateXSamples = function() {
+  const _generateXSamples = function() {
     old_range_x = range_x
+    old_sample_step = samples_step
 
     minX = -range_x
     maxX =  range_x
@@ -36,8 +35,9 @@ const SampleGenerator = new (function() {
     }
   }
 
-  const _updateYSamples = function() {
+  const _generateYSamples = function() {
     old_range_y = range_y
+    old_sample_step = samples_step
     
     minY = -range_y
     maxY =  range_y
@@ -47,31 +47,19 @@ const SampleGenerator = new (function() {
     }
   }
 
-  const _updateZSamples = function() {
-    old_input_str = input_str
-    
-    if (input_str) {
-      z_samples = math.evaluate(input_str, scope)
-    }
-  }
-  
-
-  const _zipSamples = function() {
+  const _zipWithZSamples = function() {
     let zipped = []
+    old_input_str = input_str
+    old_sample_step = samples_step
     range = range_x < range_y ? x_samples.length : y_samples.length
-
-    for (let i = 0; i < range; ++i) {
-      zipped.push(x_samples[i])
-      zipped.push(y_samples[i])
-      zipped.push(z_samples[i])
-    }
     
-    for (let i = 0; i < range; ++i) {
-      for (let j = 0; j < range; ++j) {
-
+    if (!input_str) return null
+    
+    for (x of x_samples) {
+      for (y of y_samples) {
+        zipped.push(math.evaluate(input_str, {x, y}))
       }
     }
-    
     return zipped
   }
     
@@ -80,12 +68,9 @@ const SampleGenerator = new (function() {
     _updateEqn()
     _updateResolution()
     
-    if (old_range_x != range_x) _updateXSamples()
-    if (old_range_y != range_y) _updateYSamples()
-    if (old_input_str != input_str) _updateZSamples()
-
-    self.samples = new Float32Array(_zipSamples())
+    if (old_range_x != range_x) _generateXSamples()
+    if (old_range_y != range_y) _generateYSamples()
+    self.samples = new Float32Array(_zipWithZSamples())
   }
   self.update()
-
 })()
