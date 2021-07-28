@@ -92,12 +92,8 @@ var SceneRenderer = function (controls) {
   // Remember the location of the transformation variable in the shader program
   mvp_loc = gl.getUniformLocation(shaderProg, "u_MVP");
 
-  mat4.lookAt(
-    view_mat,
-    INIT_EYE_POS,   // eye
-    CENTER,         // center
-    Y_AXIS,         // up
-  )
+  // Initialize matrices
+  view_mat = Camera.view
   mat4.perspective(
     proj_mat,
     PROJECTION_ANGLE,

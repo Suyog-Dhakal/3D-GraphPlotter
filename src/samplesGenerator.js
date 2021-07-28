@@ -20,7 +20,8 @@ const SampleGenerator = new (function() {
   }
 
   const _updateResolution = function() {
-    samples_step = 1 - document.getElementById("resolution_scale").value
+    // samples_step = (1 - document.getElementById("resolution_scale").value) / 10
+    samples_step = (1 - document.getElementById("resolution_scale").value)
   }
 
   const _generateXSamples = function() {
