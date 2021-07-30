@@ -8,12 +8,12 @@ const GraphObject = new (function() {
   // Initialize vertices
   self.posVertices = SampleGenerator.samples
   self.colorVertices = new Float32Array([
-    1, 0, 0,
-    1, 0, 0,
-    0, 1, 0,
-    0, 1, 0,
-    1, 0, 0,
-    1, 0, 0,
+    // 1, 0, 0,
+    // 1, 0, 0,
+    // 0, 1, 0,
+    // 0, 1, 0,
+    // 1, 0, 0,
+    // 1, 0, 0,
   ])
   self.update = function() {
     SampleGenerator.update()

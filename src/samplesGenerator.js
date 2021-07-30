@@ -59,6 +59,10 @@ const SampleGenerator = new (function() {
     for (x of x_samples) {
       for (y of y_samples) {
         zipped.push(math.evaluate(input_str, {x, y}))
+        x++
+        zipped.push(math.evaluate(input_str, {x, y}))
+        y++
+        zipped.push(math.evaluate(input_str, {x, y}))
       }
     }
     return zipped
