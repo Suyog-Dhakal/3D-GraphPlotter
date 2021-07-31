@@ -18,5 +18,4 @@ const GraphObject = new (function() {
   self.update = function() {
     SampleGenerator.update()
   }
-  self.update()
 })()

@@ -2,6 +2,7 @@ const SampleGenerator = new (function() {
   self = this
   
   self.samples = null
+  self.normals = null
   
   let minX, maxX, minY, maxY
   let range_x, range_y, old_range_x, old_range_y
@@ -48,24 +49,39 @@ const SampleGenerator = new (function() {
     }
   }
 
-  const _zipWithZSamples = function() {
-    if (!input_str) return null
+  // Generates normal vector using 3 vertices
+  const _generateNormal = function(v1, v2, v3) {
+    let normal = vec3.create()
+    let v12 = vec3.create()
+    let v13 = vec3.create()
+    vec3.cross(normal, vec3.subtract(v12, v1, v2), vec3.subtract(v13, v1, v3))
+    vec3.normalize(normal, normal)
+    return normal
+  }
 
-    let zipped = []
+  const _zipWithZSamples = function() {
+    if (!input_str) return
+
+    let v1 = [], v2 = [], v3 = []
+    let zippedZ = []
+    let zippedNormals = []
+    let evaluateZ = () => { return math.evaluate(input_str, {x, y})}
     old_input_str = input_str
     old_sample_step = samples_step
-    range = range_x < range_y ? x_samples.length : y_samples.length
     
     for (x of x_samples) {
       for (y of y_samples) {
-        zipped.push(math.evaluate(input_str, {x, y}))
+        v1 = [x, y, evaluateZ()]
         x++
-        zipped.push(math.evaluate(input_str, {x, y}))
+        v2 = [x, y, evaluateZ()]        
         y++
-        zipped.push(math.evaluate(input_str, {x, y}))
+        v3 = [x, y, evaluateZ()]
+        zippedNormals.push(_generateNormal(vec3.fromValues(...v1), vec3.fromValues(...v2), vec3.fromValues(...v3)))
+        zippedZ.push(...v1, ...v2, ...v3)
       }
     }
-    return zipped
+    self.samples = new Float32Array(zippedZ)
+    self.normals = new Float32Array(zippedNormals)
   }
     
   self.update = function() {
@@ -75,7 +91,7 @@ const SampleGenerator = new (function() {
     
     if (old_range_x != range_x) _generateXSamples()
     if (old_range_y != range_y) _generateYSamples()
-    self.samples = new Float32Array(_zipWithZSamples())
+    _zipWithZSamples()
   }
   self.update()
 })()
