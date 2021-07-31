@@ -54,9 +54,11 @@ const SampleGenerator = new (function() {
     let normal = vec3.create()
     let v12 = vec3.create()
     let v13 = vec3.create()
+
     vec3.cross(normal, vec3.subtract(v12, v1, v2), vec3.subtract(v13, v1, v3))
     vec3.normalize(normal, normal)
-    return normal
+    
+    return Array(...normal)
   }
 
   const _zipWithZSamples = function() {
@@ -76,7 +78,7 @@ const SampleGenerator = new (function() {
         v2 = [x, y, evaluateZ()]        
         y++
         v3 = [x, y, evaluateZ()]
-        zippedNormals.push(_generateNormal(vec3.fromValues(...v1), vec3.fromValues(...v2), vec3.fromValues(...v3)))
+        zippedNormals.push(..._generateNormal(vec3.fromValues(...v1), vec3.fromValues(...v2), vec3.fromValues(...v3)))
         zippedZ.push(...v1, ...v2, ...v3)
       }
     }

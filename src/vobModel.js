@@ -3,9 +3,11 @@
 var VOBModel = function (obj_model) {
 
   // Shader variables
-  var vert_loc = null;
-  var color_loc = null;
-
+  let vert_loc = null
+  let color_loc = null
+  let normals_loc = null
+  let fading_loc = null
+  let ambient_loc = null
   //-----------------------------------------------------------------------
   function _createGpuVob(data) {
     // Create a buffer object
@@ -29,14 +31,18 @@ var VOBModel = function (obj_model) {
   //-----------------------------------------------------------------------
   function _buildVobBuffers() {
     obj_model.posVertBuffId = _createGpuVob(obj_model.posVertices)
-    obj_model.colorVertBuffId = _createGpuVob(obj_model.colorVertices)
+    obj_model.normalsBuffId = _createGpuVob(obj_model.normals)
   }
 
   //-----------------------------------------------------------------------
   function _getLocationOfShaderVariables() {
     // Get the location of the shader variables
     vert_loc = gl.getAttribLocation(shaderProg, 'a_ObjVert');
-    color_loc = gl.getAttribLocation(shaderProg, 'a_Color');
+    normals_loc = gl.getAttribLocation(shaderProg, 'a_Normal')
+    
+    color_loc = gl.getUniformLocation(shaderProg, 'u_Color');
+    fading_loc = gl.getUniformLocation(shaderProg, 'u_Fading');
+    ambient_loc = gl.getUniformLocation(shaderProg, 'u_AmbientStrength');
   }
 
   //-----------------------------------------------------------------------
@@ -104,19 +110,21 @@ var VOBModel = function (obj_model) {
       )
       gl.enableVertexAttribArray(vert_loc)
 
-      // Activate the model's triangle color object buffer
-      gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.colorVertBuffId);
+      gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.normalsBuffId)
 
-      // // Bind the colors VOB to the 'a_Color' shader variable
       gl.vertexAttribPointer(
-        color_loc, 
-        3, 
-        gl.FLOAT, 
-        gl.FALSE, 
-        0, 
+        normals_loc,
+        3,
+        gl.FLOAT,
+        gl.FALSE,
+        0,
         0
-      );
-      gl.enableVertexAttribArray(color_loc);
+      )
+      gl.enableVertexAttribArray(normals_loc)
+
+      gl.uniform3fv(color_loc, obj_model.color)
+      gl.uniform1f(fading_loc, obj_model.fading)
+      gl.uniform1f(ambient_loc, obj_model.ambientStrength)
 
       gl.drawArrays(obj_model.primitive, 0, obj_model.posVertices.length / 3)
     }

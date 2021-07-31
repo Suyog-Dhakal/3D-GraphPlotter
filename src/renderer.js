@@ -7,7 +7,7 @@
 // Build, create, copy and render 3D objects specific to a particular
 // model definition and particular WebGL shaders.
 //-------------------------------------------------------------------------
-var SceneRenderer = function (controls) {
+var SceneRenderer = new (function (controls) {
 
   let self = this; // Store a local reference to the new object.
 
@@ -27,7 +27,7 @@ var SceneRenderer = function (controls) {
     mat4.multiply(model_mat, model_mat, rot_y_mat);
     mat4.multiply(mvp_mat, mvp_mat, model_mat)
 
-    vob_model.coord_axes.render(mvp_loc, mvp_mat);
+    // vob_model.coord_axes.render(mvp_loc, mvp_mat);
     vob_model.graph_obj.render(mvp_loc, mvp_mat);
   };
 
@@ -103,7 +103,7 @@ var SceneRenderer = function (controls) {
   )
   mat4.multiply(mvp_mat, proj_mat, view_mat)
 
-  vob_model.coord_axes = new VOBModel(CoordAxes)
+  // vob_model.coord_axes = new VOBModel(CoordAxes)
   vob_model.graph_obj  = new VOBModel(GraphObject)
 
   // Set up callbacks for user and timer events
@@ -115,5 +115,5 @@ var SceneRenderer = function (controls) {
   $( id ).mousedown( events.mouse_drag_started );
   $( id ).mouseup( events.mouse_drag_ended );
   $( id ).mousemove( events.mouse_dragged );
-};
+})(["animate_btn"])
 

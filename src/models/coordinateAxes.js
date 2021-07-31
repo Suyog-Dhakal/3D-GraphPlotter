@@ -17,6 +17,14 @@ const CoordAxes = new (function() {
     ORIGIN.X,          ORIGIN.Y,         ORIGIN.Z,        
     ORIGIN.X,          ORIGIN.Y,         INIT_AXES_RANGE,
   ])
+  self.normals = new Float32Array([
+    1.0, 0.0, 0.0,
+    1.0, 0.0, 0.0,
+    1.0, 0.0, 0.0,
+    1.0, 0.0, 0.0,
+    1.0, 0.0, 0.0,
+    1.0, 0.0, 0.0,
+  ])
   self.colorVertices = new Float32Array([
     // X-axis red
     1, 0, 0,

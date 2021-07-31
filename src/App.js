@@ -1,7 +1,5 @@
 const main = (() => {
-  let scene = new SceneRenderer(["animate_btn"])
-  scene.render()
-  // scene.delete()
+  // SceneRenderer.render()
 })()
 
 // const objMat = coordAxes.axesVertices
