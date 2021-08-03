@@ -16,7 +16,6 @@ var SceneRenderer = new (function (controls) {
   self.render = function () {
     // Clear the entire canvas window background with the clear color
     // out.display_info("Clearing the screen");
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     // Build individual transforms
     mat4.rotateX(rot_x_mat, rot_x_mat, self.angle_x);
@@ -27,7 +26,7 @@ var SceneRenderer = new (function (controls) {
     mat4.multiply(model_mat, model_mat, rot_y_mat);
     mat4.multiply(mvp_mat, mvp_mat, model_mat)
 
-    // vob_model.coord_axes.render(mvp_loc, mvp_mat);
+    vob_model.coord_axes.render(mvp_loc, mvp_mat);
     vob_model.graph_obj.render(mvp_loc, mvp_mat);
   };
 
@@ -103,7 +102,7 @@ var SceneRenderer = new (function (controls) {
   )
   mat4.multiply(mvp_mat, proj_mat, view_mat)
 
-  // vob_model.coord_axes = new VOBModel(CoordAxes)
+  vob_model.coord_axes = new VOBModel(CoordAxes)
   vob_model.graph_obj  = new VOBModel(GraphObject)
 
   // Set up callbacks for user and timer events

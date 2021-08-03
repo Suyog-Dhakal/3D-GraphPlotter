@@ -1,5 +1,5 @@
 const main = (() => {
-  // SceneRenderer.render()
+  SceneRenderer.render()
 })()
 
 // const objMat = coordAxes.axesVertices

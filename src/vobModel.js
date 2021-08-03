@@ -77,20 +77,21 @@ var VOBModel = function (obj_model) {
       )
       gl.enableVertexAttribArray(vert_loc)
 
-      // Activate the coordinate axes color object buffer
-      gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.colorVertBuffId);
+      gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.normalsBuffId)
 
-      // // Bind the colors VOB to the 'a_Color' shader variable
       gl.vertexAttribPointer(
-        color_loc, 
-        3, 
-        gl.FLOAT, 
-        gl.FALSE, 
-        0, 
+        normals_loc,
+        3,
+        gl.FLOAT,
+        gl.FALSE,
+        0,
         0
-      );
-      gl.enableVertexAttribArray(color_loc);
+      )
+      gl.enableVertexAttribArray(normals_loc)
 
+      gl.uniform3fv(color_loc, obj_model.color)
+      gl.uniform1f(fading_loc, obj_model.fading)
+      gl.uniform1f(ambient_loc, obj_model.ambientStrength)
       // Draw coordinate axes
       gl.drawArrays(obj_model.primitive, 0, 3 * 2);
     }

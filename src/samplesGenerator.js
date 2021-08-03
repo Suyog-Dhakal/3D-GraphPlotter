@@ -6,7 +6,7 @@ const SampleGenerator = new (function() {
   
   let minX, maxX, minY, maxY
   let range_x, range_y, old_range_x, old_range_y
-  let input_str = "", old_input_str = ""
+  let input_expr = "", old_input_expr = ""
   let samples_step, old_sample_step
   let x_samples = []
   let y_samples = []
@@ -17,34 +17,24 @@ const SampleGenerator = new (function() {
   }
 
   const _updateEqn = function() {
-    input_str = document.getElementById("function").value
+    input_expr = document.getElementById("function").value
   }
 
   const _updateResolution = function() {
-    // samples_step = (1 - document.getElementById("resolution_scale").value) / 10
-    samples_step = (1 - document.getElementById("resolution_scale").value)
+    samples_step = (1 - document.getElementById("resolution_scale").value)/50
   }
 
-  const _generateXSamples = function() {
+  const _generateXYSamples = function() {
     old_range_x = range_x
     old_sample_step = samples_step
 
     minX = -range_x
     maxX =  range_x
-    
-    for (let x = minX; x <= maxX; x += samples_step) {
-        x_samples.push(x)
-    }
-  }
-
-  const _generateYSamples = function() {
-    old_range_y = range_y
-    old_sample_step = samples_step
-    
     minY = -range_y
     maxY =  range_y
     
-    for (let y = minY; y <= maxY; y += samples_step) {
+    for (let x = minX, y = minY; x <= maxX, y <= maxY; x += samples_step, y += samples_step) {
+        x_samples.push(x)
         y_samples.push(y)
     }
   }
@@ -62,37 +52,45 @@ const SampleGenerator = new (function() {
   }
 
   const _zipWithZSamples = function() {
-    if (!input_str) return
+    if (!input_expr) return
 
     let v1 = [], v2 = [], v3 = []
-    let zippedZ = []
-    let zippedNormals = []
-    let evaluateZ = () => { return math.evaluate(input_str, {x, y})}
-    old_input_str = input_str
+    const zippedZ = []
+    const zippedNormals = []
+    const evaluateZ = () => { return math.evaluate(input_expr, {x, y})}
+    old_input_expr = input_expr
     old_sample_step = samples_step
     
     for (x of x_samples) {
       for (y of y_samples) {
-        v1 = [x, y, evaluateZ()]
+        // create vertices of a triangle
         x++
+        v1 = [x, y, evaluateZ()]
+        x--
         v2 = [x, y, evaluateZ()]        
         y++
         v3 = [x, y, evaluateZ()]
-        zippedNormals.push(..._generateNormal(vec3.fromValues(...v1), vec3.fromValues(...v2), vec3.fromValues(...v3)))
+
         zippedZ.push(...v1, ...v2, ...v3)
+        for (let i = 0; i < 3; ++i)
+          zippedNormals.push(..._generateNormal(
+            vec3.fromValues(...v1), 
+            vec3.fromValues(...v2), 
+            vec3.fromValues(...v3)
+          ))
       }
     }
+    console.log("Samples: ", zippedZ.length)
     self.samples = new Float32Array(zippedZ)
     self.normals = new Float32Array(zippedNormals)
   }
     
   self.update = function() {
-    _updateRanges()
     _updateEqn()
+    _updateRanges()
     _updateResolution()
     
-    if (old_range_x != range_x) _generateXSamples()
-    if (old_range_y != range_y) _generateYSamples()
+    _generateXYSamples()
     _zipWithZSamples()
   }
   self.update()

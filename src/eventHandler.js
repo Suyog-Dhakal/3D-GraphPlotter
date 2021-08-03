@@ -132,7 +132,7 @@ const EventHandler = function (scene, control_id_list) {
   var animate_is_on = scene.animate_active;
 
   // Control the rate at which animations refresh
-  var frame_rate = 5; // 16 milliseconds = 1/60 sec
+  var frame_rate = 1; // 16 milliseconds = 1/60 sec
 
   // Add an onclick callback to each HTML control
   var j;
