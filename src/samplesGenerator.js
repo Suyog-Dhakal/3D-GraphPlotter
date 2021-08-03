@@ -21,7 +21,7 @@ const SampleGenerator = new (function() {
   }
 
   const _updateResolution = function() {
-    samples_step = (1 - document.getElementById("resolution_scale").value)/50
+    samples_step = (1 - document.getElementById("resolution_scale").value)
   }
 
   const _generateXYSamples = function() {
