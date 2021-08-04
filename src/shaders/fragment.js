@@ -13,7 +13,7 @@ void main() {
     vec4 color = vec4(u_Color, 1.0 - u_Fading * gl_FragCoord[2]);
 
     // set lighting
-    vec3 lightDir = normalize(vec3(1, 1, -1));
+    vec3 lightDir = normalize(vec3(1, 1, 0));
     float diff = max(dot(v_Normal, lightDir), 0.0);
     vec3 lightColor = vec3(1, 1, 1);
 

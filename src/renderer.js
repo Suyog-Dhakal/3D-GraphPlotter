@@ -115,4 +115,3 @@ var SceneRenderer = new (function (controls) {
   $( id ).mouseup( events.mouse_drag_ended );
   $( id ).mousemove( events.mouse_dragged );
 })(["animate_btn"])
-

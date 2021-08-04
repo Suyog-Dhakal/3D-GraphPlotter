@@ -19,5 +19,4 @@ const Camera = new (function(canvas, pos) {
     CENTER,         // center
     self.up,         // up
   )
-
 })(canvas, INIT_EYE_POS)
