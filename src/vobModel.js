@@ -29,8 +29,8 @@ var VOBModel = function (obj_model) {
 
   //-----------------------------------------------------------------------
   function _buildVobBuffers() {
-    obj_model.posVertBuffId = _createGpuVob(obj_model.posVertices);
-    obj_model.normalsBuffId = _createGpuVob(obj_model.normals);
+    obj_model.posVertBuffId = _createGpuVob(new Float32Array(obj_model.posVertices));
+    obj_model.normalsBuffId = _createGpuVob(new Float32Array(obj_model.normals));
   }
 
   //-----------------------------------------------------------------------
@@ -62,6 +62,7 @@ var VOBModel = function (obj_model) {
 
     if (obj_model.primitive === gl.LINES) {
       // Activate
+      gl.disable(gl.DEPTH_TEST)
       gl.bindBuffer(gl.ARRAY_BUFFER, obj_model.posVertBuffId);
 
       // Bind the vertices VOB to the 'a_ObjVert' shader variable

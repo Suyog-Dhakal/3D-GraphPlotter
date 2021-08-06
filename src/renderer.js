@@ -102,8 +102,8 @@ var SceneRenderer = new (function (controls) {
   )
   mat4.multiply(mvp_mat, proj_mat, view_mat)
 
-  vob_model.coord_axes = new VOBModel(CoordAxes)
   vob_model.graph_obj  = new VOBModel(GraphObject)
+  vob_model.coord_axes = new VOBModel(CoordAxes)
 
   // Set up callbacks for user and timer events
   var events;

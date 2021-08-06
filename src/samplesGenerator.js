@@ -22,7 +22,7 @@ const SampleGenerator = new (function () {
   };
 
   const _updateResolution = function () {
-    samples_step = (1 - document.getElementById("resolution_scale").value) / 30;
+    samples_step = (1 - document.getElementById("resolution_scale").value) / 20;
   };
 
   const _generateXYSamples = function () {
@@ -73,9 +73,8 @@ const SampleGenerator = new (function () {
     for (x of x_samples) {
       for (y of y_samples) {
         // create vertices of a triangle
-        x++;
         v1 = [x, y, evaluateZ()];
-        x--;
+        x++;
         v2 = [x, y, evaluateZ()];
         y++;
         v3 = [x, y, evaluateZ()];
@@ -89,11 +88,29 @@ const SampleGenerator = new (function () {
               vec3.fromValues(...v3)
             )
           );
+
+        v1 = [x, y, evaluateZ()];
+        x--;
+        v2 = [x, y, evaluateZ()];
+        y--;
+        v3 = [x, y, evaluateZ()];
+
+        zippedZ.push(...v1, ...v2, ...v3);
+        for (let i = 0; i < 3; ++i)
+          zippedNormals.push(
+            ..._generateNormal(
+              vec3.fromValues(...v1),
+              vec3.fromValues(...v2),
+              vec3.fromValues(...v3)
+            )
+          );
+
+        
       }
     }
     console.log("Samples: ", zippedZ.length);
-    self.samples = new Float32Array(zippedZ);
-    self.normals = new Float32Array(zippedNormals);
+    self.samples = zippedZ;
+    self.normals = zippedNormals;
   };
 
   self.update = function () {
