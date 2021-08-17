@@ -18,8 +18,33 @@ var SceneRenderer = new (function (controls) {
     // out.display_info("Clearing the screen");
 
     // Build individual transforms
-    mat4.rotateX(rot_x_mat, rot_x_mat, self.angle_x);
-    mat4.rotateY(rot_y_mat, rot_y_mat, self.angle_y);
+    window.addEventListener("keypress", function(event) {
+      if (event.defaultPrevented) {
+        return;
+      }
+
+      else if (event.key === "w") {
+        mat4.rotateX(rot_x_mat, rot_x_mat, rot_angleX);
+        mat4.multiply(model_mat, model_mat, rot_x_mat);
+        mat4.multiply(model_mat, model_mat, rot_y_mat);
+        mat4.multiply(mvp_mat, mvp_mat, model_mat);
+        vob_model.coord_axes.render(mvp_loc, mvp_mat);
+        vob_model.graph_obj.render(mvp_loc, mvp_mat);
+      }
+      else if (event.key ==="s") {
+        mat4.rotateY(rot_y_mat, rot_y_mat, rot_angleY);
+        mat4.multiply(model_mat, model_mat, rot_x_mat);
+        mat4.multiply(model_mat, model_mat, rot_y_mat);
+        mat4.multiply(mvp_mat, mvp_mat, model_mat)
+        vob_model.coord_axes.render(mvp_loc, mvp_mat);
+        vob_model.graph_obj.render(mvp_loc, mvp_mat);
+      }
+    },
+    )
+
+    
+    // mat4.rotateX(rot_x_mat, rot_x_mat, self.angle_x);
+    // mat4.rotateY(rot_y_mat, rot_y_mat, self.angle_y);
 
     // Combine the transforms into a single transformation
     mat4.multiply(model_mat, model_mat, rot_x_mat);
@@ -42,13 +67,13 @@ var SceneRenderer = new (function (controls) {
     vob_model.graph_obj.delete();
     vob_model = null;
 
-    // Remove all event handlers
-    var id = '#' + 'graphics-canvas';
-    $( id ).unbind( "mousedown", events.mouse_drag_started );
-    $( id ).unbind( "mouseup", events.mouse_drag_ended );
-    $( id ).unbind( "mousemove", events.mouse_dragged );
-    events.removeAllEventHandlers();
-    events = null;
+    // // Remove all event handlers
+    // var id = '#' + 'graphics-canvas';
+    // $( id ).unbind( "mousedown", events.mouse_drag_started );
+    // $( id ).unbind( "mouseup", events.mouse_drag_ended );
+    // $( id ).unbind( "mousemove", events.mouse_dragged );
+    // events.removeAllEventHandlers();
+    // events = null;
 
     // Disable any animation
     self.animate_active = false;
@@ -72,10 +97,13 @@ var SceneRenderer = new (function (controls) {
   let rot_x_mat = mat4.create()
   let rot_y_mat = mat4.create()
 
+  let rot_angleX = degToRad(0.1);
+  let rot_angleY = degToRad(0.1);
+
   // Public variables that will be changed by event handlers.
   self.canvas = null;
-  self.angle_x = 0.0;
-  self.angle_y = 0.0;
+  // self.angle_x = 0.0;
+  // self.angle_y = 0.0;
   self.animate_active = false;
 
   // Get the rendering context for the canvas
@@ -93,6 +121,7 @@ var SceneRenderer = new (function (controls) {
 
   // Initialize matrices
   view_mat = Camera.view
+
   mat4.perspective(
     proj_mat,
     PROJECTION_ANGLE,
@@ -100,18 +129,27 @@ var SceneRenderer = new (function (controls) {
     NEAR_Z,
     FAR_Z
   )
+
+
+  function radToDeg(r) {
+    return r * 180 / Math.PI;
+  }
+
+  function degToRad(d) {
+    return d * Math.PI / 180;
+  }
   mat4.multiply(mvp_mat, proj_mat, view_mat)
 
   vob_model.graph_obj  = new VOBModel(GraphObject)
   vob_model.coord_axes = new VOBModel(CoordAxes)
 
   // Set up callbacks for user and timer events
-  var events;
-  events = new EventHandler(self, controls);
-  // events.animate();
+  // var events;
+  // events = new EventHandler(self, controls);
+  // // events.animate();
 
-  var id = '#graphics-canvas';
-  $( id ).mousedown( events.mouse_drag_started );
-  $( id ).mouseup( events.mouse_drag_ended );
-  $( id ).mousemove( events.mouse_dragged );
+  // var id = '#graphics-canvas';
+  // $( id ).mousedown( events.mouse_drag_started );
+  // $( id ).mouseup( events.mouse_drag_ended );
+  // $( id ).mousemove( events.mouse_dragged );
 })(["animate_btn"])

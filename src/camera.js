@@ -18,3 +18,4 @@ const Camera = new (function(canvas, pos) {
     self.up,         // up
   )
 })(canvas, INIT_EYE_POS)
+
